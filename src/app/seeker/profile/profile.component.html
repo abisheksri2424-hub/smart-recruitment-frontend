@@ -1,1 +1,99 @@
-<p>profile works!</p>
+<div class="profile-page">
+
+  <h2>My Profile</h2>
+
+  @if (successMessage) {
+    <p class="success-message">{{ successMessage }}</p>
+  }
+
+  @if (errorMessage) {
+    <p class="error-message">{{ errorMessage }}</p>
+  }
+
+  <label>Full Name</label>
+  <input
+    type="text"
+    [(ngModel)]="fullName"
+  />
+
+  <label>Location</label>
+  <input
+    type="text"
+    [(ngModel)]="location"
+  />
+
+  <label>Years of Experience</label>
+  <input
+    type="number"
+    [(ngModel)]="yearsOfExperience"
+  />
+
+  <label>Education Level</label>
+  <select [(ngModel)]="educationLevel">
+    <option [ngValue]="0">Not Specified</option>
+    <option [ngValue]="1">O Level</option>
+    <option [ngValue]="2">A Level</option>
+    <option [ngValue]="3">Diploma</option>
+    <option [ngValue]="4">Bachelor</option>
+    <option [ngValue]="5">Master</option>
+    <option [ngValue]="6">Doctorate</option>
+  </select>
+
+  <label>Summary</label>
+  <textarea [(ngModel)]="summary"></textarea>
+
+  <button type="button" (click)="saveProfile()">
+    Save Profile
+  </button>
+
+  <hr>
+
+  <h3>Skills</h3>
+
+  <div class="skill-input-row">
+    <input
+      type="text"
+      placeholder="Enter a skill"
+      [(ngModel)]="newSkill"
+    />
+
+    <button type="button" (click)="addSkill()">
+      Add Skill
+    </button>
+  </div>
+
+  <div class="skills-list">
+    @for (skill of skills; track skill) {
+      <div class="skill-item">
+        <span>{{ skill }}</span>
+
+        <button type="button" (click)="removeSkill(skill)">
+          Remove
+        </button>
+      </div>
+    }
+  </div>
+
+  <button type="button" (click)="saveSkills()">
+    Save Skills
+  </button>
+
+  <hr>
+
+  <h3>CV</h3>
+
+  <input
+    type="file"
+    accept=".pdf,.doc,.docx"
+    (change)="onCvSelected($event)"
+  />
+
+  <button type="button" (click)="uploadCv()">
+    Upload CV
+  </button>
+
+  <button type="button" (click)="downloadCv()">
+    Download CV
+  </button>
+
+</div>
