@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <div class="dashboard-page">
 
   <h2>Job Seeker Dashboard</h2>
@@ -19,19 +21,16 @@
       <p>View your job applications</p>
     </a>
 
+    <a routerLink="/seeker/contact-requests" class="dashboard-card">
+      <h3>Contact Requests</h3>
+      <p>View employer contact requests</p>
+    </a>
+
     <a routerLink="/seeker/notifications" class="dashboard-card">
       <h3>Notifications</h3>
       <p>View latest notifications</p>
     </a>
 
   </div>
-
-  <button
-    type="button"
-    class="logout-button"
-    (click)="logout()"
-  >
-    Logout
-  </button>
 
 </div>

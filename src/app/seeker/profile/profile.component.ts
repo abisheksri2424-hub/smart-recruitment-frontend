@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SeekerProfileService } from '../../core/services/seeker-profile.service';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NavbarComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

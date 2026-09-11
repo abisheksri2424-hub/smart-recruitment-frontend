@@ -29,24 +29,45 @@ export class LoginComponent {
       return;
     }
 
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+
     this.authService.login(this.email, this.password).subscribe({
       next: (response: any) => {
 
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
+        const role = response.role;
 
-        if (response.role === 'JobSeeker') {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('role', role);
+
+        if (role === 'JobSeeker') {
           this.router.navigate(['/seeker/dashboard']);
-        } else if (response.role === 'Employer') {
-          this.router.navigate(['/employer/dashboard']);
-        } else if (response.role === 'Admin') {
-          this.router.navigate(['/admin/dashboard']);
+          return;
         }
+
+        if (role === 'Employer') {
+          this.router.navigate(['/employer/dashboard']);
+          return;
+        }
+
+        if (role === 'Administrator' || role === 'Admin') {
+          this.router.navigate(['/admin/dashboard']);
+          return;
+        }
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+
+        this.errorMessage = 'Unknown user role: ' + role;
       },
 
       error: (error) => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+
         this.errorMessage =
-          error?.error?.message || 'Invalid email or password.';
+          error?.error?.message ||
+          'Invalid email or password.';
       }
     });
   }

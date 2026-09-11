@@ -1,0 +1,69 @@
+<div class="contact-requests-page">
+
+  <h2>Contact Requests</h2>
+
+  @if (successMessage) {
+    <p class="success-message">
+      {{ successMessage }}
+    </p>
+  }
+
+  @if (errorMessage) {
+    <p class="error-message">
+      {{ errorMessage }}
+    </p>
+  }
+
+  @if (contactRequests.length === 0 && !errorMessage) {
+    <p>No contact requests found.</p>
+  }
+
+  @for (request of contactRequests; track request.id) {
+
+    <div class="request-card">
+
+      <div>
+
+        <h3>{{ request.employerName }}</h3>
+
+        <p>
+          <strong>Message:</strong>
+          {{ request.message }}
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          {{ getStatus(request.status) }}
+        </p>
+
+      </div>
+
+      @if (request.status === 1) {
+
+        <div class="actions">
+
+          <button
+            type="button"
+            class="accept-button"
+            (click)="acceptRequest(request.id)"
+          >
+            Accept
+          </button>
+
+          <button
+            type="button"
+            class="decline-button"
+            (click)="declineRequest(request.id)"
+          >
+            Decline
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

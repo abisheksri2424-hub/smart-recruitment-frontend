@@ -1,8 +1,49 @@
 <div class="notifications-page">
+
   <h2>Notifications</h2>
 
-  <div class="notification-card">
-    <p>Your application status has been updated.</p>
-    <small>Just now</small>
-  </div>
+  @if (errorMessage) {
+    <p class="error-message">
+      {{ errorMessage }}
+    </p>
+  }
+
+  @if (notifications.length === 0 && !errorMessage) {
+    <p>No notifications found.</p>
+  }
+
+  @for (notification of notifications; track notification.id) {
+
+    <div
+      class="notification-card"
+      [class.unread]="!notification.isRead"
+    >
+
+      <div class="notification-content">
+
+        <h3>{{ notification.title }}</h3>
+
+        <p>{{ notification.message }}</p>
+
+        <small>
+          {{ notification.createdAt | date:'medium' }}
+        </small>
+
+      </div>
+
+      @if (!notification.isRead) {
+
+        <button
+          type="button"
+          (click)="markAsRead(notification.id)"
+        >
+          Mark as Read
+        </button>
+
+      }
+
+    </div>
+
+  }
+
 </div>

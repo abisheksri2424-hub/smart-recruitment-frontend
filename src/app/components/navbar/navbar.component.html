@@ -1,1 +1,38 @@
-<p>navbar works!</p>
+<nav class="navbar">
+
+  <div class="navbar-brand">
+    Smart Recruitment
+  </div>
+
+  <div class="navbar-links">
+
+    @if (role === 'JobSeeker') {
+      <a routerLink="/seeker/dashboard">Dashboard</a>
+      <a routerLink="/seeker/profile">Profile</a>
+      <a routerLink="/seeker/jobs">Jobs</a>
+      <a routerLink="/seeker/applications">Applications</a>
+      <a routerLink="/seeker/contact-requests">Contact Requests</a>
+      <a routerLink="/seeker/notifications">Notifications</a>
+    }
+
+    @if (role === 'Employer') {
+      <a routerLink="/employer/dashboard">Dashboard</a>
+      <a routerLink="/employer/vacancy">Vacancies</a>
+      <a routerLink="/employer/applicants">Applicants</a>
+    }
+
+    @if (role === 'Administrator') {
+      <a routerLink="/admin/dashboard">Dashboard</a>
+      <a routerLink="/admin/users">Users</a>
+    }
+
+    <button
+      type="button"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</nav>
