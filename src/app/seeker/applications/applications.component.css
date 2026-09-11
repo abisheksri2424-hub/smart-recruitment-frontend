@@ -1,0 +1,19 @@
+.applications-page {
+  padding: 30px;
+}
+
+.application-card {
+  max-width: 500px;
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.application-card h3 {
+  margin-bottom: 15px;
+}
+
+.application-card p {
+  margin: 8px 0;
+}

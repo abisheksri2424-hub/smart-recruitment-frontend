@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\employer",
+    "\\src\\app\\employer\\applicants",
+    "\\src\\app\\employer\\dashboard",
+    "\\src\\app\\employer\\vacancy",
+    "\\src\\app\\seeker",
+    "\\src\\app\\seeker\\jobs"
+  ],
+  "SelectedNode": "\\src\\app\\seeker\\jobs\\jobs.component.spec.ts",
+  "PreviewInSolutionExplorer": false
+}
