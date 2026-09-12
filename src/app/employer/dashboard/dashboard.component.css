@@ -1,0 +1,85 @@
+.dashboard-container {
+  padding: 30px;
+}
+
+.dashboard-container h2 {
+  margin-bottom: 10px;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.card {
+  width: 260px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card button {
+  padding: 10px 15px;
+  border: none;.dashboard-container {
+  padding: 30px;
+}
+
+.dashboard-container h2 {
+  margin-bottom: 8px;
+}
+
+.dashboard-container > p {
+  color: #666;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.card {
+  width: 260px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card p {
+  color: #555;
+}
+
+.card button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #0056b3;
+}
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #0056b3;
+}

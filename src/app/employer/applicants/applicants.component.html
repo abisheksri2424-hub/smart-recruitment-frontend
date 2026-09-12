@@ -1,1 +1,109 @@
-<p>applicants works!</p>
+<div class="applicants-container">
+
+  <div class="header">
+    <div>
+      <h2>Applicants</h2>
+      <p>View and manage applicants for this vacancy.</p>
+    </div>
+
+    <button
+      class="back-btn"
+      routerLink="/employer/vacancies">
+      Back to Vacancies
+    </button>
+  </div>
+
+  <p *ngIf="loading">
+    Loading applicants...
+  </p>
+
+  <p
+    class="success-message"
+    *ngIf="successMessage">
+    {{ successMessage }}
+  </p>
+
+  <p
+    class="error-message"
+    *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
+
+  <div
+    class="table-container"
+    *ngIf="applicants.length > 0">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Experience</th>
+          <th>Skills</th>
+          <th>Match Score</th>
+          <th>Status</th>
+          <th>Actions</th>
+          <th>CV</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let applicant of applicants">
+
+          <td>
+            {{ applicant.fullName }}
+          </td>
+
+          <td>
+            {{ applicant.location }}
+          </td>
+
+          <td>
+            {{ applicant.yearsOfExperience }} year(s)
+          </td>
+
+          <td>
+            {{ applicant.skills.join(', ') }}
+          </td>
+
+          <td>
+            {{ applicant.matchScore }}%
+          </td>
+
+          <td>
+            {{ getStatusText(applicant.status) }}
+          </td>
+
+          <td>
+            <div class="status-actions">
+
+              <button
+                class="shortlist-btn"
+                (click)="shortlist(applicant)">
+                Shortlist
+              </button>
+
+              <button
+                class="reject-btn"
+                (click)="reject(applicant)">
+                Reject
+              </button>
+
+            </div>
+          </td>
+
+          <td>
+            <button
+              class="cv-btn"
+              (click)="viewCv(applicant)">
+              View CV
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
