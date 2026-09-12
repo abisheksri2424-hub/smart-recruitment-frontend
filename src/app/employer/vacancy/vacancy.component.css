@@ -1,0 +1,89 @@
+.vacancy-container {
+  padding: 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header p {
+  color: #666;
+}
+
+.create-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.vacancy-list {
+  display: grid;
+  gap: 20px;
+}
+
+.vacancy-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  background: #d4edda;
+  color: #155724;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.actions button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background: #ffc107;
+}
+
+.applicants-btn {
+  background: #17a2b8;
+  color: white;
+}
+
+.close-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.success-message {
+  color: green;
+  margin: 15px 0;
+}
+
+.error-message {
+  color: red;
+  margin: 15px 0;
+}
+
+ul {
+  padding-left: 20px;
+}

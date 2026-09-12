@@ -1,0 +1,90 @@
+.applicants-container {
+  padding: 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header h2 {
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #666;
+}
+
+.back-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  background: #6c757d;
+  color: white;
+  cursor: pointer;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th,
+td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #f5f5f5;
+}
+
+.status-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.status-actions button,
+.cv-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.shortlist-btn {
+  background: #28a745;
+  color: white;
+}
+
+.reject-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.cv-btn {
+  background: #17a2b8;
+  color: white;
+}
+
+.success-message {
+  color: green;
+  margin: 15px 0;
+}
+
+.error-message {
+  color: red;
+  margin: 15px 0;
+}
+
+button:hover {
+  opacity: 0.9;
+}

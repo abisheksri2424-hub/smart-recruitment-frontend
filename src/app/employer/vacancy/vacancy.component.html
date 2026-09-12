@@ -1,1 +1,126 @@
-<p>vacancy works!</p>
+<div class="vacancy-container">
+
+  <div class="header">
+
+    <div>
+      <h2>My Vacancies</h2>
+      <p>Manage your posted job vacancies.</p>
+    </div>
+
+    <button
+      class="create-btn"
+      routerLink="/employer/vacancies/create">
+
+      + Create Vacancy
+
+    </button>
+
+  </div>
+
+  <p *ngIf="loading">
+    Loading vacancies...
+  </p>
+
+  <p
+    class="success-message"
+    *ngIf="successMessage">
+
+    {{ successMessage }}
+
+  </p>
+
+  <p
+    class="error-message"
+    *ngIf="errorMessage">
+
+    {{ errorMessage }}
+
+  </p>
+
+  <p
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      vacancies.length === 0
+    ">
+
+    No vacancies found.
+
+  </p>
+
+  <div class="vacancy-list">
+
+    <div
+      class="vacancy-card"
+      *ngFor="let vacancy of vacancies">
+
+      <div class="card-top">
+
+        <h3>
+          {{ vacancy.title }}
+        </h3>
+
+        <span class="status">
+          Status: {{ vacancy.status }}
+        </span>
+
+      </div>
+
+      <p>
+        <strong>Location:</strong>
+        {{ vacancy.location || 'Not specified' }}
+      </p>
+
+      <p>
+        <strong>Minimum Experience:</strong>
+        {{ vacancy.minimumExperienceYears }} year(s)
+      </p>
+
+      <p>
+        <strong>Description:</strong>
+        {{ vacancy.description }}
+      </p>
+
+      <p>
+        <strong>Required Skills:</strong>
+      </p>
+
+      <ul>
+        <li
+          *ngFor="let skill of vacancy.requiredSkills">
+          {{ skill }}
+        </li>
+      </ul>
+
+      <div class="actions">
+
+        <button
+          class="edit-btn"
+          [routerLink]="[
+            '/employer/vacancies/edit',
+            vacancy.id
+          ]">
+
+          Edit
+
+        </button>
+
+        <button class="applicants-btn">
+          Applicants
+        </button>
+
+        <button
+          class="close-btn"
+          (click)="closeVacancy(vacancy.id)">
+
+          Close Vacancy
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

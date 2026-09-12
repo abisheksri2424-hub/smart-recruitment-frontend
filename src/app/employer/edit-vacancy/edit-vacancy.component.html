@@ -1,0 +1,93 @@
+<div class="form-container">
+
+  <h2>Edit Vacancy</h2>
+
+  <p *ngIf="loading">
+    Loading vacancy...
+  </p>
+
+  <p
+    class="error-message"
+    *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
+
+  <form
+    *ngIf="!loading"
+    (ngSubmit)="updateVacancy()">
+
+    <label>
+      Job Title
+    </label>
+
+    <input
+      type="text"
+      name="title"
+      [(ngModel)]="vacancy.title"
+      required
+    />
+
+    <label>
+      Description
+    </label>
+
+    <textarea
+      name="description"
+      [(ngModel)]="vacancy.description"
+      rows="5"
+      required
+    ></textarea>
+
+    <label>
+      Location
+    </label>
+
+    <input
+      type="text"
+      name="location"
+      [(ngModel)]="vacancy.location"
+    />
+
+    <label>
+      Minimum Experience Years
+    </label>
+
+    <input
+      type="number"
+      name="minimumExperienceYears"
+      [(ngModel)]="vacancy.minimumExperienceYears"
+      min="0"
+    />
+
+    <label>
+      Required Education Level
+    </label>
+
+    <input
+      type="number"
+      name="requiredEducationLevel"
+      [(ngModel)]="vacancy.requiredEducationLevel"
+      min="0"
+    />
+
+    <button
+      type="submit"
+      [disabled]="saving">
+
+      {{
+        saving
+          ? 'Updating...'
+          : 'Update Vacancy'
+      }}
+
+    </button>
+
+  </form>
+
+  <p
+    class="success-message"
+    *ngIf="successMessage">
+    {{ successMessage }}
+  </p>
+
+</div>

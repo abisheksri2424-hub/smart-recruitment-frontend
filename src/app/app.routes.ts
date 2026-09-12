@@ -27,6 +27,26 @@ import {
   UsersComponent
 } from './admin/users/users.component';
 
+import {
+  DashboardComponent as EmployerDashboardComponent
+} from './employer/dashboard/dashboard.component';
+
+import {
+  VacancyComponent
+} from './employer/vacancy/vacancy.component';
+
+import {
+  CreateVacancyComponent
+} from './employer/create-vacancy/create-vacancy.component';
+
+import {
+  ApplicantsComponent
+} from './employer/applicants/applicants.component';
+
+import {
+  EditVacancyComponent
+} from './employer/edit-vacancy/edit-vacancy.component';
+
 import { authGuard } from './core/guards/auth.guard';
 import { seekerGuard } from './core/guards/seeker.guard';
 import { adminGuard } from './core/guards/admin.guard';
@@ -101,6 +121,31 @@ export const routes: Routes = [
       authGuard,
       adminGuard
     ]
+  },
+
+  {
+    path: 'employer/dashboard',
+    component: EmployerDashboardComponent
+  },
+
+  {
+    path: 'employer/vacancies',
+    component: VacancyComponent
+  },
+
+  {
+    path: 'employer/vacancies/create',
+    component: CreateVacancyComponent
+  },
+
+  {
+    path: 'employer/vacancies/edit/:id',
+    component: EditVacancyComponent
+  },
+
+  {
+    path: 'employer/vacancies/:jobId/applicants',
+    component: ApplicantsComponent
   },
 
   {
