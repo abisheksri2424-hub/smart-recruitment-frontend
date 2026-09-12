@@ -1,29 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { JobService } from '../../services/job.service';
 
 @Component({
   selector: 'app-jobs',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './jobs.component.html',
   styleUrl: './jobs.component.css'
 })
-export class JobsComponent {
+export class JobsComponent implements OnInit {
 
-  jobs = [
-    {
-      id: 1,
-      title: 'Software Developer',
-      company: 'ABC Company',
-      location: 'Jaffna',
-      matchScore: 85
-    },
-    {
-      id: 2,
-      title: 'Frontend Developer',
-      company: 'Tech Solutions',
-      location: 'Colombo',
-      matchScore: 78
-    }
-  ];
+  jobs: any[] = [];
+  searchText = '';
 
+  constructor(private jobService: JobService) {}
+
+  ngOnInit(): void {
+    this.loadJobs();
+  }
+
+  loadJobs(): void {
+    this.jobService.getJobs(this.searchText).subscribe({
+      next: (data) => {
+        this.jobs = data;
+        console.log('Jobs:', data);
+      },
+      error: (error) => {
+        console.error('Failed to load jobs:', error);
+      }
+    });
+  }
+
+  searchJobs(): void {
+    this.loadJobs();
+  }
 }

@@ -1,19 +1,67 @@
-<div class="jobs-page">
-  <h2>Find Jobs</h2>
+<div class="jobs-container">
 
-  <div class="job-card">
-    <h3>Software Developer</h3>
-    <p>Company: ABC Company</p>
-    <p>Location: Jaffna</p>
-    <p>Match Score: 85%</p>
-    <p>Missing Skills: Docker, Azure</p>
+  <h1>Find Jobs</h1>
 
-    <button type="button">
-      View Details
-    </button>
+  <div class="search-box">
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    placeholder="Search jobs..."
+    (keyup.enter)="searchJobs()"
+  />
 
-    <button type="button">
-      Apply
-    </button>
+     <button
+    type="button"
+    (click)="searchJobs()"
+  >
+    Search
+  </button>
   </div>
+
+  <div class="job-list">
+
+  <div
+  class="job-card"
+  *ngFor="let job of jobs"
+>
+
+  <h2>{{ job.title }}</h2>
+
+  <p>
+    <strong>Company:</strong>
+    {{ job.companyName }}
+  </p>
+
+  <p>
+    <strong>Location:</strong>
+    {{ job.location }}
+  </p>
+
+  <p>
+    <strong>Experience:</strong>
+    {{ job.minimumExperienceYears }} years
+  </p>
+
+  <p>
+    <strong>Education:</strong>
+    {{ job.requiredEducationLevel }}
+  </p>
+
+  <p>
+    <strong>Match Score:</strong>
+    {{ job.matchScore }}%
+  </p>
+
+  <p>
+    <strong>Missing Skills:</strong>
+    {{ job.missingSkills.join(', ') }}
+  </p>
+
+  <button
+    class="view-btn"
+    [routerLink]="['/seeker/jobs', job.jobId]"
+  >
+    View Details
+  </button>
+
 </div>

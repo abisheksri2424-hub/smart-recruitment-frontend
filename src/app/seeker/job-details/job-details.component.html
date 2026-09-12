@@ -1,0 +1,57 @@
+<div class="details-container" *ngIf="job">
+
+  <h1>{{ job.title }}</h1>
+
+  <p><strong>Company:</strong> {{ job.companyName }}</p>
+  <p><strong>Location:</strong> {{ job.location }}</p>
+  <p>
+  <strong>Experience:</strong>
+  {{ job.minimumExperienceYears }} years
+</p>
+
+<p>
+  <strong>Education:</strong>
+  {{ job.requiredEducationLevel }}
+</p>
+
+  <hr>
+
+  <h2>Job Description</h2>
+  <p>{{ job.description }}</p>
+
+  <h2>Required Skills</h2>
+
+  <div class="skills">
+    <span
+      *ngFor="let skill of job.requiredSkills"
+      class="skill"
+    >
+      {{ skill }}
+    </span>
+  </div>
+
+  <h2>Match Score</h2>
+
+  <div class="match-score">
+    {{ job.matchScore }}%
+  </div>
+
+  <h2>Missing Skills</h2>
+
+  <div class="skills">
+    <span
+      *ngFor="let skill of job.missingSkills"
+      class="missing-skill"
+    >
+      {{ skill }}
+    </span>
+  </div>
+
+  <button
+    class="apply-btn"
+    (click)="applyJob()"
+  >
+    Apply Job
+  </button>
+
+</div>

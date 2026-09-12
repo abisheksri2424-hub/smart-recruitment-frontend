@@ -1,0 +1,49 @@
+.details-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+}
+
+.details-container h1 {
+  margin-bottom: 20px;
+}
+
+.details-container h2 {
+  margin-top: 25px;
+}
+
+.skills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.skill {
+  padding: 8px 12px;
+  background: #e0f2fe;
+  color: #0369a1;
+  border-radius: 20px;
+}
+
+.missing-skill {
+  padding: 8px 12px;
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 20px;
+}
+
+.match-score {
+  font-size: 28px;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+.apply-btn {
+  margin-top: 30px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
