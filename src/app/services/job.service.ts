@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface JobVacancy {
@@ -19,48 +16,65 @@ export interface JobVacancy {
   requiredSkills: string[];
 }
 
+export interface DiscoveredJob {
+  jobId: number;
+  title: string;
+  description: string;
+  location: string;
+  companyName: string;
+  minimumExperienceYears: number;
+  requiredEducationLevel: string;
+  requiredSkills: string[];
+  matchScore: number;
+  skillsScore?: number;
+  experienceScore?: number;
+  educationScore?: number;
+  locationScore?: number;
+  matchedSkills: string[];
+  missingSkills: string[];
+}
+
+export interface MyApplication {
+  applicationId: number;
+  jobVacancyId: number;
+  jobTitle: string;
+  companyName: string;
+  matchScore: number;
+  status: number;
+  appliedAt: string;
+  updatedAt: string | null;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
 
-  private apiUrl = 'http://localhost:5000/api/Jobs';
+  private jobsApiUrl = 'http://localhost:5000/api/Jobs';
+  private applicationsApiUrl = 'http://localhost:5000/api/applications';
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-  }
+  // =========================
+  // EMPLOYER
+  // =========================
 
   getMyJobs(): Observable<JobVacancy[]> {
     return this.http.get<JobVacancy[]>(
-      `${this.apiUrl}/mine`,
-      {
-        headers: this.getHeaders()
-      }
+      `${this.jobsApiUrl}/mine`
     );
   }
 
   createJob(jobData: any): Observable<any> {
-    return this.http.post(
-      this.apiUrl,
-      jobData,
-      {
-        headers: this.getHeaders()
-      }
+    return this.http.post<any>(
+      this.jobsApiUrl,
+      jobData
     );
   }
 
   getJobById(jobId: number): Observable<JobVacancy> {
     return this.http.get<JobVacancy>(
-      `${this.apiUrl}/${jobId}`,
-      {
-        headers: this.getHeaders()
-      }
+      `${this.jobsApiUrl}/${jobId}`
     );
   }
 
@@ -68,22 +82,58 @@ export class JobService {
     jobId: number,
     jobData: any
   ): Observable<any> {
-    return this.http.put(
-      `${this.apiUrl}/${jobId}`,
-      jobData,
-      {
-        headers: this.getHeaders()
-      }
+    return this.http.put<any>(
+      `${this.jobsApiUrl}/${jobId}`,
+      jobData
     );
   }
 
   closeJob(jobId: number): Observable<any> {
-    return this.http.patch(
-      `${this.apiUrl}/${jobId}/close`,
-      {},
+    return this.http.patch<any>(
+      `${this.jobsApiUrl}/${jobId}/close`,
+      {}
+    );
+  }
+
+  // =========================
+  // JOB SEEKER
+  // =========================
+
+  discoverJobs(
+    search: string = '',
+    location: string = ''
+  ): Observable<DiscoveredJob[]> {
+
+    return this.http.get<DiscoveredJob[]>(
+      `${this.jobsApiUrl}/discover`,
       {
-        headers: this.getHeaders()
+        params: {
+          Search: search,
+          Location: location
+        }
       }
+    );
+  }
+
+  getJobMatch(
+    jobId: number
+  ): Observable<DiscoveredJob> {
+
+    return this.http.get<DiscoveredJob>(
+      `${this.jobsApiUrl}/${jobId}/match`
+    );
+  }
+
+  applyJob(jobId: number): Observable<any> {
+    return this.http.post<any>(
+      `${this.jobsApiUrl}/${jobId}/apply`,
+      {}
+    );
+  }
+
+  getMyApplications(): Observable<MyApplication[]> {
+    return this.http.get<MyApplication[]>(
+      `${this.applicationsApiUrl}/mine`
     );
   }
 }

@@ -1,0 +1,110 @@
+<div class="details-container">
+
+  <p *ngIf="loading">
+    Loading job details...
+  </p>
+
+  <p
+    class="error-message"
+    *ngIf="errorMessage"
+  >
+    {{ errorMessage }}
+  </p>
+
+  <div *ngIf="job && !loading">
+
+    <h1>{{ job.title }}</h1>
+
+    <p>
+      <strong>Company:</strong>
+      {{ job.companyName }}
+    </p>
+
+    <p>
+      <strong>Location:</strong>
+      {{ job.location }}
+    </p>
+
+    <p>
+      <strong>Experience:</strong>
+      {{ job.minimumExperienceYears }} years
+    </p>
+
+    <p>
+      <strong>Education:</strong>
+      {{ job.requiredEducationLevel }}
+    </p>
+
+    <hr>
+
+    <h2>Job Description</h2>
+
+    <p>
+      {{ job.description }}
+    </p>
+
+    <h2>Required Skills</h2>
+
+    <div class="skills">
+      <span
+        class="skill"
+        *ngFor="let skill of job.requiredSkills"
+      >
+        {{ skill }}
+      </span>
+    </div>
+
+    <h2>Match Score</h2>
+
+    <div class="match-score">
+      {{ job.matchScore }}%
+    </div>
+
+    <h2>Matched Skills</h2>
+
+    <div class="skills">
+      <span
+        class="matched-skill"
+        *ngFor="let skill of job.matchedSkills"
+      >
+        {{ skill }}
+      </span>
+
+      <span *ngIf="job.matchedSkills.length === 0">
+        None
+      </span>
+    </div>
+
+    <h2>Missing Skills</h2>
+
+    <div class="skills">
+      <span
+        class="missing-skill"
+        *ngFor="let skill of job.missingSkills"
+      >
+        {{ skill }}
+      </span>
+
+      <span *ngIf="job.missingSkills.length === 0">
+        None
+      </span>
+    </div>
+
+    <button
+      type="button"
+      class="apply-btn"
+      (click)="applyJob()"
+    >
+      Apply Job
+    </button>
+
+    <p
+      class="apply-message"
+      *ngIf="applyMessage"
+    >
+      {{ applyMessage }}
+    </p>
+
+  </div>
+
+</div>

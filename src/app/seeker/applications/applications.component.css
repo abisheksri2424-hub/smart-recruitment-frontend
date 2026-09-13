@@ -1,0 +1,44 @@
+.applications-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.applications-container h1 {
+  margin-bottom: 25px;
+}
+
+.application-list {
+  display: grid;
+  gap: 20px;
+}
+
+.application-card {
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px
+    rgba(0, 0, 0, 0.08);
+}
+
+.application-card h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.application-card p {
+  margin: 10px 0;
+}
+
+.loading-message {
+  color: #555555;
+}
+
+.error-message {
+  color: #b91c1c;
+}
+
+.empty-message {
+  color: #666666;
+}

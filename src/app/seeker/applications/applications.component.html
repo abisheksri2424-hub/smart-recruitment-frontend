@@ -1,1 +1,65 @@
-<p>applications works!</p>
+<div class="applications-container">
+
+  <h1>My Applications</h1>
+
+  <p
+    class="loading-message"
+    *ngIf="loading"
+  >
+    Loading applications...
+  </p>
+
+  <p
+    class="error-message"
+    *ngIf="errorMessage"
+  >
+    {{ errorMessage }}
+  </p>
+
+  <p
+    class="empty-message"
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      applications.length === 0
+    "
+  >
+    No applications found.
+  </p>
+
+  <div class="application-list">
+
+    <div
+      class="application-card"
+      *ngFor="let application of applications"
+    >
+
+      <h2>
+        {{ application.jobTitle }}
+      </h2>
+
+      <p>
+        <strong>Company:</strong>
+        {{ application.companyName }}
+      </p>
+
+      <p>
+        <strong>Match Score:</strong>
+        {{ application.matchScore }}%
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        {{ getStatusText(application.status) }}
+      </p>
+
+      <p>
+        <strong>Applied Date:</strong>
+        {{ application.appliedAt | date:'medium' }}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
