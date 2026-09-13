@@ -1,67 +1,109 @@
-<div class="jobs-container">
+<app-navbar></app-navbar>
 
-  <h1>Find Jobs</h1>
+<div class="jobs-page">
 
-  <div class="search-box">
-  <input
-    type="text"
-    [(ngModel)]="searchText"
-    placeholder="Search jobs..."
-    (keyup.enter)="searchJobs()"
-  />
+  <h2>Find Jobs</h2>
 
-     <button
-    type="button"
-    (click)="searchJobs()"
-  >
-    Search
-  </button>
+  <div class="search-section">
+
+    <input
+      type="text"
+      placeholder="Search jobs"
+      [(ngModel)]="searchTerm"
+      (keyup.enter)="searchJobs()"
+    />
+
+    <button
+      type="button"
+      (click)="searchJobs()"
+    >
+      Search
+    </button>
+
+    <button
+      type="button"
+      (click)="clearSearch()"
+    >
+      Clear
+    </button>
+
   </div>
 
-  <div class="job-list">
+  @if (loading) {
+    <p>Loading jobs...</p>
+  }
 
-  <div
-  class="job-card"
-  *ngFor="let job of jobs"
->
+  @if (successMessage) {
+    <p class="success-message">
+      {{ successMessage }}
+    </p>
+  }
 
-  <h2>{{ job.title }}</h2>
+  @if (errorMessage) {
+    <p class="error-message">
+      {{ errorMessage }}
+    </p>
+  }
 
-  <p>
-    <strong>Company:</strong>
-    {{ job.companyName }}
-  </p>
+  @if (!loading && jobs.length === 0 && !errorMessage) {
+    <p>No jobs found.</p>
+  }
 
-  <p>
-    <strong>Location:</strong>
-    {{ job.location }}
-  </p>
+  @for (job of jobs; track job.jobId) {
 
-  <p>
-    <strong>Experience:</strong>
-    {{ job.minimumExperienceYears }} years
-  </p>
+    <div class="job-card">
 
-  <p>
-    <strong>Education:</strong>
-    {{ job.requiredEducationLevel }}
-  </p>
+      <h3>
+        {{ job.title }}
+      </h3>
 
-  <p>
-    <strong>Match Score:</strong>
-    {{ job.matchScore }}%
-  </p>
+      <p>
+        <strong>Company:</strong>
+        {{ job.companyName }}
+      </p>
 
-  <p>
-    <strong>Missing Skills:</strong>
-    {{ job.missingSkills.join(', ') }}
-  </p>
+      <p>
+        <strong>Location:</strong>
+        {{ job.location || 'Not specified' }}
+      </p>
 
-  <button
-    class="view-btn"
-    [routerLink]="['/seeker/jobs', job.jobId]"
-  >
-    View Details
-  </button>
+      <p>
+        <strong>Experience:</strong>
+        {{ job.minimumExperienceYears }} year(s)
+      </p>
+
+      <p>
+        <strong>Description:</strong>
+        {{ job.description }}
+      </p>
+
+      <p>
+        <strong>Required Skills:</strong>
+        {{ job.requiredSkills?.join(', ') || 'Not specified' }}
+      </p>
+
+      <p>
+        <strong>Match Score:</strong>
+        {{ job.matchScore ?? 0 }}%
+      </p>
+
+      <p>
+        <strong>Missing Skills:</strong>
+        {{ job.missingSkills?.length
+          ? job.missingSkills.join(', ')
+          : 'None'
+        }}
+      </p>
+
+      <button
+        type="button"
+        (click)="applyJob(job.jobId)"
+      >
+        Apply
+      </button>
+
+    </div>
+
+  }
 
 </div>

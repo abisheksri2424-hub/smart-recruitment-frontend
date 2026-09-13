@@ -1,57 +1,118 @@
-<div class="details-container" *ngIf="job">
+<div class="job-details-page">
 
-  <h1>{{ job.title }}</h1>
+  @if (errorMessage) {
+    <p class="error-message">
+      {{ errorMessage }}
+    </p>
+  }
 
-  <p><strong>Company:</strong> {{ job.companyName }}</p>
-  <p><strong>Location:</strong> {{ job.location }}</p>
-  <p>
-  <strong>Experience:</strong>
-  {{ job.minimumExperienceYears }} years
-</p>
+  @if (successMessage) {
+    <p class="success-message">
+      {{ successMessage }}
+    </p>
+  }
 
-<p>
-  <strong>Education:</strong>
-  {{ job.requiredEducationLevel }}
-</p>
+  @if (job) {
 
-  <hr>
+    <div class="job-details-card">
 
-  <h2>Job Description</h2>
-  <p>{{ job.description }}</p>
+      <h2>{{ job.title }}</h2>
 
-  <h2>Required Skills</h2>
+      <p>
+        <strong>Company:</strong>
+        {{ job.companyName }}
+      </p>
 
-  <div class="skills">
-    <span
-      *ngFor="let skill of job.requiredSkills"
-      class="skill"
-    >
-      {{ skill }}
-    </span>
-  </div>
+      <p>
+        <strong>Location:</strong>
+        {{ job.location }}
+      </p>
 
-  <h2>Match Score</h2>
+      <p>
+        <strong>Minimum Experience:</strong>
+        {{ job.minimumExperienceYears }} years
+      </p>
 
-  <div class="match-score">
-    {{ job.matchScore }}%
-  </div>
+      <p>
+        <strong>Description:</strong>
+        {{ job.description }}
+      </p>
 
-  <h2>Missing Skills</h2>
+      @if (job.requiredSkills?.length > 0) {
+        <p>
+          <strong>Required Skills:</strong>
+          {{ job.requiredSkills.join(', ') }}
+        </p>
+      }
 
-  <div class="skills">
-    <span
-      *ngFor="let skill of job.missingSkills"
-      class="missing-skill"
-    >
-      {{ skill }}
-    </span>
-  </div>
+      @if (match) {
 
-  <button
-    class="apply-btn"
-    (click)="applyJob()"
-  >
-    Apply Job
-  </button>
+        <hr>
+
+        <h3>Match Details</h3>
+
+        <p>
+          <strong>Overall Match:</strong>
+          {{ match.matchScore }}%
+        </p>
+
+        <p>
+          <strong>Skills Score:</strong>
+          {{ match.skillsScore }}%
+        </p>
+
+        <p>
+          <strong>Experience Score:</strong>
+          {{ match.experienceScore }}%
+        </p>
+
+        <p>
+          <strong>Education Score:</strong>
+          {{ match.educationScore }}%
+        </p>
+
+        <p>
+          <strong>Location Score:</strong>
+          {{ match.locationScore }}%
+        </p>
+
+        @if (match.matchedSkills?.length > 0) {
+          <p>
+            <strong>Matched Skills:</strong>
+            {{ match.matchedSkills.join(', ') }}
+          </p>
+        }
+
+        @if (match.missingSkills?.length > 0) {
+          <p>
+            <strong>Missing Skills:</strong>
+            {{ match.missingSkills.join(', ') }}
+          </p>
+        }
+
+      }
+
+      <div class="actions">
+
+        <button
+          type="button"
+          (click)="applyJob()"
+        >
+          Apply Job
+        </button>
+
+        <button
+          type="button"
+          class="back-button"
+          (click)="backToJobs()"
+        >
+          Back to Jobs
+        </button>
+
+      </div>
+
+    </div>
+
+  }
 
 </div>

@@ -1,27 +1,49 @@
-<div class="dashboard-page">
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
 
   <h2>Seeker Dashboard</h2>
 
-  <p>Welcome to your job seeker dashboard.</p>
+  <p>
+    Welcome to your job seeker dashboard.
+  </p>
 
   <div class="dashboard-cards">
 
     <div class="dashboard-card">
       <h3>Find Jobs</h3>
-      <p>View jobs that match your profile.</p>
-      <button type="button">View Jobs</button>
+
+      <p>
+        View jobs that match your profile.
+      </p>
+
+      <a routerLink="/seeker/jobs">
+        View Jobs
+      </a>
     </div>
 
     <div class="dashboard-card">
       <h3>My Applications</h3>
-      <p>Track your job applications and status.</p>
-      <button type="button">View Applications</button>
+
+      <p>
+        Track your job applications and status.
+      </p>
+
+      <a routerLink="/seeker/applications">
+        View Applications
+      </a>
     </div>
 
     <div class="dashboard-card">
       <h3>My Profile</h3>
-      <p>Manage your skills, experience and education.</p>
-      <button type="button">View Profile</button>
+
+      <p>
+        Manage your skills, experience and education.
+      </p>
+
+      <a routerLink="/seeker/profile">
+        View Profile
+      </a>
     </div>
 
   </div>

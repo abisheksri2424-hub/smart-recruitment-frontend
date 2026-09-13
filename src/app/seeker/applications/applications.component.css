@@ -1,18 +1,33 @@
-.applications-container {
+.applications-page {
   max-width: 900px;
-  margin: auto;
-  padding: 30px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.applications-page h2 {
+  margin-bottom: 20px;
 }
 
 .application-card {
-  margin-bottom: 20px;
   padding: 20px;
-  border: 1px solid #ddd;
+  margin-bottom: 16px;
+  background: #ffffff;
   border-radius: 10px;
-  background: white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.application-card h2 {
-  margin-top: 0;
+.application-card h3 {
+  margin: 0 0 12px;
+}
+
+.application-card p {
+  margin: 8px 0;
+}
+
+.error-message {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  background: #fee2e2;
+  color: #991b1b;
 }
