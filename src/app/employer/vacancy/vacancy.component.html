@@ -9,10 +9,9 @@
 
     <button
       class="create-btn"
-      routerLink="/employer/vacancies/create">
-
+      routerLink="/employer/create-vacancy"
+    >
       + Create Vacancy
-
     </button>
 
   </div>
@@ -23,18 +22,16 @@
 
   <p
     class="success-message"
-    *ngIf="successMessage">
-
+    *ngIf="successMessage"
+  >
     {{ successMessage }}
-
   </p>
 
   <p
     class="error-message"
-    *ngIf="errorMessage">
-
+    *ngIf="errorMessage"
+  >
     {{ errorMessage }}
-
   </p>
 
   <p
@@ -42,17 +39,17 @@
       !loading &&
       !errorMessage &&
       vacancies.length === 0
-    ">
-
+    "
+  >
     No vacancies found.
-
   </p>
 
   <div class="vacancy-list">
 
     <div
       class="vacancy-card"
-      *ngFor="let vacancy of vacancies">
+      *ngFor="let vacancy of vacancies"
+    >
 
       <div class="card-top">
 
@@ -61,7 +58,8 @@
         </h3>
 
         <span class="status">
-          Status: {{ vacancy.status }}
+          Status:
+          {{ getStatusText(vacancy.status) }}
         </span>
 
       </div>
@@ -73,7 +71,8 @@
 
       <p>
         <strong>Minimum Experience:</strong>
-        {{ vacancy.minimumExperienceYears }} year(s)
+        {{ vacancy.minimumExperienceYears }}
+        year(s)
       </p>
 
       <p>
@@ -87,7 +86,10 @@
 
       <ul>
         <li
-          *ngFor="let skill of vacancy.requiredSkills">
+          *ngFor="
+            let skill of vacancy.requiredSkills
+          "
+        >
           {{ skill }}
         </li>
       </ul>
@@ -97,24 +99,33 @@
         <button
           class="edit-btn"
           [routerLink]="[
-            '/employer/vacancies/edit',
+            '/employer/edit-vacancy',
             vacancy.id
-          ]">
-
+          ]"
+        >
           Edit
-
         </button>
 
-        <button class="applicants-btn">
+        <button
+          class="applicants-btn"
+          [routerLink]="[
+            '/employer/applicants',
+            vacancy.id
+          ]"
+        >
           Applicants
         </button>
 
         <button
           class="close-btn"
-          (click)="closeVacancy(vacancy.id)">
-
-          Close Vacancy
-
+          (click)="closeVacancy(vacancy.id)"
+          [disabled]="vacancy.status === 2"
+        >
+          {{
+            vacancy.status === 2
+              ? 'Closed'
+              : 'Close Vacancy'
+          }}
         </button>
 
       </div>

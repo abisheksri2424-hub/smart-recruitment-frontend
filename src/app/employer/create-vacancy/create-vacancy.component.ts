@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { JobService } from '../../services/job.service';
 
 @Component({
   selector: 'app-create-vacancy',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule
@@ -16,48 +16,57 @@ import { JobService } from '../../services/job.service';
 })
 export class CreateVacancyComponent {
 
-  vacancy = {
-    title: '',
-    description: '',
-    location: '',
-    minimumExperienceYears: 0,
-    requiredEducationLevel: 0
-  };
+  title = '';
+  description = '';
+  location = '';
+  minimumExperienceYears = 0;
+  requiredEducationLevel = 0;
+  requiredSkills = '';
 
-  successMessage = '';
-  errorMessage = '';
   loading = false;
+  errorMessage = '';
 
   constructor(
     private jobService: JobService,
     private router: Router
   ) {}
 
-  submitForm(): void {
+  createVacancy(): void {
 
-    this.loading = true;
-    this.successMessage = '';
     this.errorMessage = '';
 
-    this.jobService.createJob(this.vacancy).subscribe({
+    const skills = this.requiredSkills
+      .split(',')
+      .map(skill => skill.trim())
+      .filter(skill => skill.length > 0);
+
+    const vacancy = {
+      title: this.title,
+      description: this.description,
+      location: this.location,
+      minimumExperienceYears:
+        Number(this.minimumExperienceYears),
+      requiredEducationLevel:
+        Number(this.requiredEducationLevel),
+      requiredSkills: skills
+    };
+
+    this.loading = true;
+
+    this.jobService.createJob(vacancy).subscribe({
 
       next: () => {
         this.loading = false;
-        this.successMessage =
-          'Vacancy created successfully.';
 
-        setTimeout(() => {
-          this.router.navigate([
-            '/employer/vacancies'
-          ]);
-        }, 1000);
+        this.router.navigate([
+          '/employer/vacancy'
+        ]);
       },
 
       error: (error) => {
         console.error(error);
 
         this.loading = false;
-
         this.errorMessage =
           'Unable to create vacancy.';
       }

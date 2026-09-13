@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  ActivatedRoute,
-  Router
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { JobService } from '../../services/job.service';
+import {
+  JobService,
+  JobVacancy
+} from '../../services/job.service';
 
 @Component({
   selector: 'app-edit-vacancy',
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule
@@ -21,12 +22,18 @@ export class EditVacancyComponent implements OnInit {
 
   jobId = 0;
 
-  vacancy = {
+  vacancy: JobVacancy = {
+    id: 0,
+    employerProfileId: 0,
     title: '',
     description: '',
     location: '',
     minimumExperienceYears: 0,
-    requiredEducationLevel: 0
+    requiredEducationLevel: 0,
+    status: 0,
+    createdAt: '',
+    updatedAt: null,
+    requiredSkills: []
   };
 
   loading = false;
@@ -43,10 +50,13 @@ export class EditVacancyComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.jobId =
-      Number(this.route.snapshot.paramMap.get('id'));
+    const id =
+      this.route.snapshot.paramMap.get('jobId') ??
+      this.route.snapshot.paramMap.get('id');
 
-    if (!this.jobId) {
+    this.jobId = Number(id);
+
+    if (!this.jobId || this.jobId <= 0) {
       this.errorMessage = 'Invalid vacancy id.';
       return;
     }
@@ -65,15 +75,7 @@ export class EditVacancyComponent implements OnInit {
 
         next: (data) => {
 
-          this.vacancy = {
-            title: data.title,
-            description: data.description,
-            location: data.location ?? '',
-            minimumExperienceYears:
-              data.minimumExperienceYears,
-            requiredEducationLevel:
-              data.requiredEducationLevel
-          };
+          this.vacancy = data;
 
           this.loading = false;
         },
@@ -93,14 +95,26 @@ export class EditVacancyComponent implements OnInit {
 
   updateVacancy(): void {
 
-    this.saving = true;
     this.errorMessage = '';
     this.successMessage = '';
+    this.saving = true;
+
+    const jobData = {
+      title: this.vacancy.title,
+      description: this.vacancy.description,
+      location: this.vacancy.location,
+      minimumExperienceYears:
+        Number(this.vacancy.minimumExperienceYears),
+      requiredEducationLevel:
+        Number(this.vacancy.requiredEducationLevel),
+      requiredSkills:
+        this.vacancy.requiredSkills ?? []
+    };
 
     this.jobService
       .updateJob(
         this.jobId,
-        this.vacancy
+        jobData
       )
       .subscribe({
 
@@ -113,9 +127,9 @@ export class EditVacancyComponent implements OnInit {
 
           setTimeout(() => {
             this.router.navigate([
-              '/employer/vacancies'
+              '/employer/vacancy'
             ]);
-          }, 1000);
+          }, 700);
         },
 
         error: (error) => {

@@ -1,26 +1,19 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import {
-  ActivatedRoute,
-  RouterLink
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import {
   ApplicationService,
   EmployerApplicant
 } from '../../services/application.service';
 
+import {
+  ContactRequestService
+} from '../../core/services/contact-request.service';
+
 @Component({
   selector: 'app-applicants',
-  imports: [
-    CommonModule,
-    RouterLink
-  ],
+  imports: [CommonModule],
   templateUrl: './applicants.component.html',
   styleUrl: './applicants.component.css'
 })
@@ -31,12 +24,14 @@ export class ApplicantsComponent implements OnInit {
   applicants: EmployerApplicant[] = [];
 
   loading = false;
+
   errorMessage = '';
   successMessage = '';
 
   constructor(
     private route: ActivatedRoute,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private contactRequestService: ContactRequestService
   ) {}
 
   ngOnInit(): void {
@@ -63,11 +58,14 @@ export class ApplicantsComponent implements OnInit {
       .subscribe({
 
         next: (data) => {
+
           this.applicants = data;
+
           this.loading = false;
         },
 
         error: (error) => {
+
           console.error(error);
 
           this.errorMessage =
@@ -82,11 +80,12 @@ export class ApplicantsComponent implements OnInit {
   getStatusText(status: number): string {
 
     switch (status) {
+
       case 1:
         return 'Applied';
 
       case 2:
-        return 'Reviewed';
+        return 'Under Review';
 
       case 3:
         return 'Shortlisted';
@@ -99,7 +98,9 @@ export class ApplicantsComponent implements OnInit {
     }
   }
 
-  shortlist(applicant: EmployerApplicant): void {
+  shortlist(
+    applicant: EmployerApplicant
+  ): void {
 
     this.updateStatus(
       applicant.applicationId,
@@ -107,7 +108,9 @@ export class ApplicantsComponent implements OnInit {
     );
   }
 
-  reject(applicant: EmployerApplicant): void {
+  reject(
+    applicant: EmployerApplicant
+  ): void {
 
     this.updateStatus(
       applicant.applicationId,
@@ -149,7 +152,11 @@ export class ApplicantsComponent implements OnInit {
       });
   }
 
-  viewCv(applicant: EmployerApplicant): void {
+  viewCv(
+    applicant: EmployerApplicant
+  ): void {
+
+    this.errorMessage = '';
 
     this.applicationService
       .getApplicationCv(
@@ -168,7 +175,11 @@ export class ApplicantsComponent implements OnInit {
           );
 
           setTimeout(() => {
-            URL.revokeObjectURL(fileUrl);
+
+            URL.revokeObjectURL(
+              fileUrl
+            );
+
           }, 10000);
         },
 
@@ -178,6 +189,58 @@ export class ApplicantsComponent implements OnInit {
 
           this.errorMessage =
             'Unable to open CV.';
+        }
+
+      });
+  }
+
+  sendContactRequest(
+    applicant: EmployerApplicant
+  ): void {
+
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    const message = window.prompt(
+      'Enter contact request message:'
+    );
+
+    if (message === null) {
+      return;
+    }
+
+    if (message.length > 1000) {
+
+      this.errorMessage =
+        'Message must be less than 1000 characters.';
+
+      return;
+    }
+
+    const data = {
+      applicationId:
+        applicant.applicationId,
+
+      message:
+        message.trim()
+    };
+
+    this.contactRequestService
+      .createContactRequest(data)
+      .subscribe({
+
+        next: () => {
+
+          this.successMessage =
+            'Contact request sent successfully.';
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          this.errorMessage =
+            'Unable to send contact request.';
         }
 
       });

@@ -24,7 +24,7 @@ export interface JobVacancy {
 })
 export class JobService {
 
-  private apiUrl = 'http://localhost:5022/api/Jobs';
+  private apiUrl = 'http://localhost:5000/api/Jobs';
 
   constructor(private http: HttpClient) {}
 

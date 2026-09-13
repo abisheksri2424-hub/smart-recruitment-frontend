@@ -24,7 +24,7 @@ export interface EmployerApplicant {
 })
 export class ApplicationService {
 
-  private apiUrl = 'http://localhost:5022/api';
+  private apiUrl = 'http://localhost:5000/api';
 
   constructor(private http: HttpClient) {}
 

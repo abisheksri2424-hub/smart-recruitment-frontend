@@ -6,11 +6,12 @@
       <p>View and manage applicants for this vacancy.</p>
     </div>
 
-    <button
+    <a
+      href="/employer/vacancy"
       class="back-btn"
-      routerLink="/employer/vacancies">
+    >
       Back to Vacancies
-    </button>
+    </a>
   </div>
 
   <p *ngIf="loading">
@@ -19,91 +20,128 @@
 
   <p
     class="success-message"
-    *ngIf="successMessage">
+    *ngIf="successMessage"
+  >
     {{ successMessage }}
   </p>
 
   <p
     class="error-message"
-    *ngIf="errorMessage">
+    *ngIf="errorMessage"
+  >
     {{ errorMessage }}
   </p>
 
-  <div
-    class="table-container"
-    *ngIf="applicants.length > 0">
+  <p
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      applicants.length === 0
+    "
+  >
+    No applicants found.
+  </p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Location</th>
-          <th>Experience</th>
-          <th>Skills</th>
-          <th>Match Score</th>
-          <th>Status</th>
-          <th>Actions</th>
-          <th>CV</th>
-        </tr>
-      </thead>
+  <table
+    *ngIf="
+      !loading &&
+      applicants.length > 0
+    "
+  >
 
-      <tbody>
-        <tr *ngFor="let applicant of applicants">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Experience</th>
+        <th>Skills</th>
+        <th>Match Score</th>
+        <th>Status</th>
+        <th>Actions</th>
+        <th>CV</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
 
-          <td>
-            {{ applicant.fullName }}
-          </td>
+    <tbody>
 
-          <td>
-            {{ applicant.location }}
-          </td>
+      <tr *ngFor="let applicant of applicants">
 
-          <td>
-            {{ applicant.yearsOfExperience }} year(s)
-          </td>
+        <td>
+          {{ applicant.fullName }}
+        </td>
 
-          <td>
-            {{ applicant.skills.join(', ') }}
-          </td>
+        <td>
+          {{ applicant.location || 'Not specified' }}
+        </td>
 
-          <td>
-            {{ applicant.matchScore }}%
-          </td>
+        <td>
+          {{ applicant.yearsOfExperience }} year(s)
+        </td>
 
-          <td>
-            {{ getStatusText(applicant.status) }}
-          </td>
+        <td>
+          <span
+            *ngFor="
+              let skill of applicant.skills;
+              let last = last
+            "
+          >
+            {{ skill }}{{ !last ? ', ' : '' }}
+          </span>
+        </td>
 
-          <td>
-            <div class="status-actions">
+        <td>
+          {{ applicant.matchScore }}%
+        </td>
 
-              <button
-                class="shortlist-btn"
-                (click)="shortlist(applicant)">
-                Shortlist
-              </button>
+        <td>
+          {{ getStatusText(applicant.status) }}
+        </td>
 
-              <button
-                class="reject-btn"
-                (click)="reject(applicant)">
-                Reject
-              </button>
+        <td>
 
-            </div>
-          </td>
+          <button
+            class="shortlist-btn"
+            (click)="shortlist(applicant)"
+          >
+            Shortlist
+          </button>
 
-          <td>
-            <button
-              class="cv-btn"
-              (click)="viewCv(applicant)">
-              View CV
-            </button>
-          </td>
+          <button
+            class="reject-btn"
+            (click)="reject(applicant)"
+          >
+            Reject
+          </button>
 
-        </tr>
-      </tbody>
-    </table>
+        </td>
 
-  </div>
+        <td>
+
+          <button
+            class="cv-btn"
+            (click)="viewCv(applicant)"
+          >
+            View CV
+          </button>
+
+        </td>
+
+        <td>
+
+          <button
+            class="contact-btn"
+            (click)="sendContactRequest(applicant)"
+          >
+            Contact Request
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
 
 </div>

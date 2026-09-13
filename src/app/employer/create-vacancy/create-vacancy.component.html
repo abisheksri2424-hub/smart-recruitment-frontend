@@ -1,95 +1,77 @@
-<div class="form-container">
+<div class="create-vacancy-container">
 
   <h2>Create Vacancy</h2>
 
-  <p>
-    Enter the job vacancy details below.
+  <p
+    class="error-message"
+    *ngIf="errorMessage"
+  >
+    {{ errorMessage }}
   </p>
 
-  <form (ngSubmit)="submitForm()">
+  <form (ngSubmit)="createVacancy()">
 
-    <label>
-      Job Title
-    </label>
-
+    <label>Job Title</label>
     <input
       type="text"
       name="title"
-      [(ngModel)]="vacancy.title"
+      [(ngModel)]="title"
       required
     />
 
-    <label>
-      Description
-    </label>
-
+    <label>Description</label>
     <textarea
       name="description"
-      [(ngModel)]="vacancy.description"
-      rows="5"
+      [(ngModel)]="description"
       required
     ></textarea>
 
-    <label>
-      Location
-    </label>
-
+    <label>Location</label>
     <input
       type="text"
       name="location"
-      [(ngModel)]="vacancy.location"
+      [(ngModel)]="location"
     />
 
-    <label>
-      Minimum Experience Years
-    </label>
-
+    <label>Minimum Experience</label>
     <input
       type="number"
       name="minimumExperienceYears"
-      [(ngModel)]="vacancy.minimumExperienceYears"
+      [(ngModel)]="minimumExperienceYears"
       min="0"
+      required
     />
 
-    <label>
-      Required Education Level
-    </label>
-
-    <input
-      type="number"
+    <label>Required Education Level</label>
+    <select
       name="requiredEducationLevel"
-      [(ngModel)]="vacancy.requiredEducationLevel"
-      min="0"
+      [(ngModel)]="requiredEducationLevel"
+      required
+    >
+      <option [ngValue]="0">Not Specified</option>
+      <option [ngValue]="1">O Level</option>
+      <option [ngValue]="2">A Level</option>
+      <option [ngValue]="3">Diploma</option>
+      <option [ngValue]="4">Bachelor</option>
+      <option [ngValue]="5">Master</option>
+      <option [ngValue]="6">Doctorate</option>
+    </select>
+
+    <label>Required Skills</label>
+    <input
+      type="text"
+      name="requiredSkills"
+      [(ngModel)]="requiredSkills"
+      placeholder="C#, ASP.NET Core, SQL Server"
     />
 
     <button
       type="submit"
-      [disabled]="loading">
-
-      {{
-        loading
-          ? 'Creating...'
-          : 'Create Vacancy'
-      }}
-
+      [disabled]="loading"
+    >
+      {{ loading ? 'Creating...' : 'Create Vacancy' }}
     </button>
 
   </form>
-
-  <p
-    class="success-message"
-    *ngIf="successMessage">
-
-    {{ successMessage }}
-
-  </p>
-
-  <p
-    class="error-message"
-    *ngIf="errorMessage">
-
-    {{ errorMessage }}
-
-  </p>
 
 </div>

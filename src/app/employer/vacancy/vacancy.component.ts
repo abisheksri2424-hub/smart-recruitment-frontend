@@ -24,7 +24,9 @@ export class VacancyComponent implements OnInit {
   errorMessage = '';
   successMessage = '';
 
-  constructor(private jobService: JobService) {}
+  constructor(
+    private jobService: JobService
+  ) {}
 
   ngOnInit(): void {
     this.loadVacancies();
@@ -34,7 +36,6 @@ export class VacancyComponent implements OnInit {
 
     this.loading = true;
     this.errorMessage = '';
-    this.successMessage = '';
 
     this.jobService.getMyJobs().subscribe({
 
@@ -44,6 +45,7 @@ export class VacancyComponent implements OnInit {
       },
 
       error: (error) => {
+
         console.error(error);
 
         this.errorMessage =
@@ -53,6 +55,19 @@ export class VacancyComponent implements OnInit {
       }
 
     });
+  }
+
+  getStatusText(status: number): string {
+
+    if (status === 1) {
+      return 'Open';
+    }
+
+    if (status === 2) {
+      return 'Closed';
+    }
+
+    return 'Unknown';
   }
 
   closeVacancy(jobId: number): void {

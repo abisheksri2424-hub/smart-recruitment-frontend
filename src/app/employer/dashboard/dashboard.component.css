@@ -1,85 +1,51 @@
-.dashboard-container {
-  padding: 30px;
+.employer-dashboard {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
 }
 
-.dashboard-container h2 {
+.employer-dashboard h2 {
   margin-bottom: 10px;
 }
 
-.dashboard-cards {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.card {
-  width: 260px;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card h3 {
-  margin-top: 0;
-}
-
-.card button {
-  padding: 10px 15px;
-  border: none;.dashboard-container {
-  padding: 30px;
-}
-
-.dashboard-container h2 {
-  margin-bottom: 8px;
-}
-
-.dashboard-container > p {
-  color: #666;
+.employer-dashboard > p {
+  margin-bottom: 30px;
 }
 
 .dashboard-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
   gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 30px;
 }
 
-.card {
-  width: 260px;
-  padding: 20px;
+.dashboard-card {
+  padding: 25px;
   background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-.card h3 {
+.dashboard-card h3 {
   margin-top: 0;
+  margin-bottom: 12px;
 }
 
-.card p {
-  color: #555;
+.dashboard-card p {
+  margin-bottom: 20px;
 }
 
-.card button {
+.dashboard-button {
+  display: inline-block;
   padding: 10px 16px;
-  border: none;
-  border-radius: 5px;
-  background: #007bff;
-  color: white;
-  cursor: pointer;
+  background: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
 }
 
-.card button:hover {
-  background: #0056b3;
-}
-  border-radius: 5px;
-  background: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-.card button:hover {
-  background: #0056b3;
+.dashboard-button:hover {
+  background: #1d4ed8;
 }
