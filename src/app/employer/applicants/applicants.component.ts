@@ -13,7 +13,10 @@ import {
 
 @Component({
   selector: 'app-applicants',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [
+    CommonModule
+  ],
   templateUrl: './applicants.component.html',
   styleUrl: './applicants.component.css'
 })
@@ -41,7 +44,10 @@ export class ApplicantsComponent implements OnInit {
     );
 
     if (!this.jobId) {
-      this.errorMessage = 'Invalid job id.';
+
+      this.errorMessage =
+        'Invalid job id.';
+
       return;
     }
 
@@ -51,15 +57,19 @@ export class ApplicantsComponent implements OnInit {
   loadApplicants(): void {
 
     this.loading = true;
+
     this.errorMessage = '';
 
     this.applicationService
-      .getJobApplications(this.jobId)
+      .getJobApplications(
+        this.jobId
+      )
       .subscribe({
 
         next: (data) => {
 
-          this.applicants = data;
+          this.applicants =
+            data ?? [];
 
           this.loading = false;
         },
@@ -77,7 +87,9 @@ export class ApplicantsComponent implements OnInit {
       });
   }
 
-  getStatusText(status: number): string {
+  getStatusText(
+    status: number
+  ): string {
 
     switch (status) {
 
@@ -91,6 +103,9 @@ export class ApplicantsComponent implements OnInit {
         return 'Shortlisted';
 
       case 4:
+        return 'Accepted';
+
+      case 5:
         return 'Rejected';
 
       default:
@@ -114,7 +129,7 @@ export class ApplicantsComponent implements OnInit {
 
     this.updateStatus(
       applicant.applicationId,
-      4
+      5
     );
   }
 
@@ -201,9 +216,10 @@ export class ApplicantsComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
-    const message = window.prompt(
-      'Enter contact request message:'
-    );
+    const message =
+      window.prompt(
+        'Enter contact request message:'
+      );
 
     if (message === null) {
       return;
@@ -218,11 +234,13 @@ export class ApplicantsComponent implements OnInit {
     }
 
     const data = {
+
       applicationId:
         applicant.applicationId,
 
       message:
         message.trim()
+
     };
 
     this.contactRequestService
